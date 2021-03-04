@@ -3,13 +3,13 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './components/login/login';
 import Home from './components/home/home';
 
-function App() {
+function App({authService}) {
   return (
     <div className={styles.app}>
       <Router>
         <Switch>
           <Route path={['/', '/login']} exact>
-            <Login/>
+            <Login authService={authService}/>
           </Route>
           <Route path='/home'>
             <Home/>

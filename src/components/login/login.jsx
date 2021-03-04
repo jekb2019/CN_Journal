@@ -1,12 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Footer from '../footer/footer';
 import Header from '../header/header';
 import styles from './login.module.css';
 
-const Login = (props) => {
+const Login = ({authService}) => {
+    
+    const history = useHistory();
+    const goToHome = userId => {
+        history.push({
+            pathname: '/home',
+            state: {id: userId}
+        });
+    };
+
     const onLogin = event => {
-        event.preventDefault();
+        authService
+        .login(event.currentTarget.textContent)
+        .then(data => goToHome(data.user.uid));
     }
+
+    // If user already signed in, go to home page
+    useEffect(() => {
+            authService.onAuthChange(user => {
+            user && goToHome(user.id);
+        });
+    })
 
     return (
         <section className={styles.container}>
