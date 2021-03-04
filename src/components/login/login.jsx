@@ -4,7 +4,7 @@ import Footer from '../footer/footer';
 import Header from '../header/header';
 import styles from './login.module.css';
 
-const Login = ({authService}) => {
+const Login = ({ authService }) => {
     
     const history = useHistory();
     const goToHome = userId => {
@@ -40,7 +40,7 @@ const Login = ({authService}) => {
                         <button onClick={onLogin} className={styles.button}>Google</button>
                     </li>
                     <li className={styles.item}>
-                        <button onClick={onLogin} className={styles.button}>Other Email</button>
+                        <button className={styles.button}>Other Email</button>
                     </li>
                 </ul>
             </section>
