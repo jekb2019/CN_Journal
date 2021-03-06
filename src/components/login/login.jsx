@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Banner from '../banner/banner';
 import Footer from '../footer/footer';
 import Header from '../header/header';
 import styles from './login.module.css';
@@ -7,6 +8,12 @@ import styles from './login.module.css';
 const Login = ({ authService }) => {
     
     const history = useHistory();
+    const bannerRef = useRef();
+
+    const onBannerClose = () => {
+        bannerRef.current.style.transform = 'translateY(-100%)'
+    }
+
     const goToHome = userId => {
         history.push({
             pathname: '/home',
@@ -14,10 +21,22 @@ const Login = ({ authService }) => {
         });
     };
 
-    const onLogin = event => {
-        authService
-        .login(event.currentTarget.textContent)
-        .then(data => goToHome(data.user.uid));
+    const onLogin = (event) => {
+        const authMethod = event.target.dataset.authmethod;
+        console.log(authMethod);
+        switch(authMethod) {
+            case 'email':
+                authService
+                .loginWithEmail();
+                return;
+            case 'google':
+                authService
+                .loginWithProvider(authMethod)
+                .then(data => goToHome(data.user.uid));
+                return;
+            default:
+                throw new Error('Unkown authentication method');
+        }
     }
 
     // If user already signed in, go to home page
@@ -29,6 +48,11 @@ const Login = ({ authService }) => {
 
     return (
         <section className={styles.container}>
+            <div ref={bannerRef} className={styles.banner}>
+                <Banner 
+                    onClose={onBannerClose}
+                    content='Current version: Beta 1.0.0'/>
+            </div>
             <Header/>
             <section className={styles.login}>
                 <div className={styles.description}>
@@ -37,10 +61,10 @@ const Login = ({ authService }) => {
                 </div>
                 <ul className={styles.options}>
                     <li className={styles.item}>
-                        <button onClick={onLogin} className={styles.button}>Google</button>
+                        <button data-authmethod='google' onClick={onLogin} className={styles.button}>Google</button>
                     </li>
                     <li className={styles.item}>
-                        <button className={styles.button}>Other Email</button>
+                        <button data-authmethod='email' onClick={onLogin} className={styles.button}>Other Email</button>
                     </li>
                 </ul>
             </section>

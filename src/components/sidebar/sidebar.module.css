@@ -1,0 +1,39 @@
+@value makerLightGrey, makerWhite from '../../common/colors.css';
+
+.sidebar {
+    height: 100%;
+}
+
+.list {
+    height: 100%;
+    padding-top: 1em;
+}
+
+.item {
+    padding: 0.8em;
+    position: relative;
+}
+
+.item:before {
+    content: "";
+    height: 1px;
+    width: 50%;
+    background-color: makerWhite;
+    position: absolute;
+    top: 100%;
+    left: 25%;
+}
+
+.button {
+    color: makerWhite;
+    display: flex;
+    justify-content: center;
+    font-size: 2.5em;
+}
+
+.item:hover {
+    background-color: makerWhite;
+}
+.item:hover .button {
+    color: makerLightGrey;
+}

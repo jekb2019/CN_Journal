@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Header from '../header/header';
 import styles from './home.module.css';
 import { useHistory } from 'react-router-dom';
+import Sidebar from '../sidebar/sidebar';
 
 const Home = ({ authService }) => {
     const history = useHistory();
@@ -26,6 +27,9 @@ const Home = ({ authService }) => {
     return (
         <div className={styles.home}>
             <Header onLogout={onLogout}/>
+            <div className={styles.sidebar}>
+                <Sidebar/>
+            </div>
         </div>
     )
 };

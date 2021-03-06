@@ -1,7 +1,11 @@
 import { firebaseAuth, googleProvider } from './firebase'
 
 class AuthService {
-    login(providerName) {
+    loginWithEmail() {
+        // TO DO - implement login option for user defined email and password
+    }
+
+    loginWithProvider(providerName) {
         const authProvider = this.getProvider(providerName);
         return firebaseAuth.signInWithPopup(authProvider);
     }
@@ -18,7 +22,7 @@ class AuthService {
 
     getProvider(providerName) {
         switch(providerName){
-            case 'Google':
+            case 'google':
                 return googleProvider;
             default:
                 new Error(`Not Supported Provider ${providerName}`);
