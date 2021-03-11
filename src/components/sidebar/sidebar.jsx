@@ -1,19 +1,46 @@
 import React from 'react';
 import styles from './sidebar.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendar, faCalendarCheck, faHome, faNotesMedical, faTasks, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt, faCalendarCheck, faHome, faNotesMedical, faTasks, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
-const Sidebar = (props) => (
+const Sidebar = ({ url }) => {
+    return (
     <nav className={styles.sidebar}>
         <ul className={styles.list}>
-            <li className={styles.item}><a className={styles.button} href=""><FontAwesomeIcon icon={faHome}/></a></li>
-            <li className={styles.item}><a className={styles.button} href=""><FontAwesomeIcon icon={faUsers}/></a></li>
-            <li className={styles.item}><a className={styles.button} href=""><FontAwesomeIcon icon={faCalendar}/></a></li>
-            <li className={styles.item}><a className={styles.button} href=""><FontAwesomeIcon icon={faNotesMedical}/></a></li>
-            <li className={styles.item}><a className={styles.button} href=""><FontAwesomeIcon icon={faTasks}/></a></li>
-            <li className={styles.item}><a className={styles.button} href=""><FontAwesomeIcon icon={faCalendarCheck}/></a></li>
+            <li className={styles.item}>
+                <Link to={`${url}`} className={styles.button}>
+                    <FontAwesomeIcon icon={faHome}/>
+                </Link>
+            </li>
+            <li className={styles.item}>
+                <Link to={`${url}/clients`} className={styles.button}>
+                    <FontAwesomeIcon icon={faUsers}/>
+                </Link>
+            </li>
+            <li className={styles.item}>
+                <Link to={`${url}/calendar`} className={styles.button}>
+                    <FontAwesomeIcon icon={faCalendarAlt}/>
+                </Link>
+            </li>
+            <li className={styles.item}>
+                <Link to={`${url}/clinicalnote`} className={styles.button}>
+                    <FontAwesomeIcon icon={faNotesMedical}/>
+                </Link>
+            </li>
+            <li className={styles.item}>
+                <Link to={`${url}/tasks`} className={styles.button}>
+                    <FontAwesomeIcon icon={faTasks}/>
+                </Link>
+            </li>
+            <li className={styles.item}>
+                <Link to={`${url}/appointments`} className={styles.button}>
+                    <FontAwesomeIcon icon={faCalendarCheck}/>
+                </Link>
+            </li>
         </ul>
     </nav> 
-    );
+    )
+};
 
 export default Sidebar;
